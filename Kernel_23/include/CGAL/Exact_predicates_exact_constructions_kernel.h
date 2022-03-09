@@ -35,6 +35,14 @@ typedef internal::Exact_field_selector<double>::Type Epeck_ft;
 // The following are redefined kernels instead of simple typedefs in order to shorten
 // template name length (for error messages, mangling...).
 
+
+#ifdef CGAL_HAS_NO_INTERVAL_SUPPORT
+
+class Epeck : public Type_equality_wrapper<Simple_cartesian<Epeck_ft>::Base<Epeck>::Type, Epeck> {};
+typedef Epeck Exact_predicates_exact_constructions_kernel;
+
+#else
+
 #ifdef CGAL_DONT_USE_LAZY_KERNEL
 
 // Equivalent to Filtered_kernel<Simple_cartesian<Lazy_exact_nt<Epeck_ft> > >
@@ -69,6 +77,8 @@ template <>
 struct Triangulation_structural_filtering_traits<Epeck> {
   typedef Tag_true Use_structural_filtering_tag;
 };
+
+#endif // CGAL_HAS_NO_INTERVAL_SUPPORT
 
 } //namespace CGAL
 

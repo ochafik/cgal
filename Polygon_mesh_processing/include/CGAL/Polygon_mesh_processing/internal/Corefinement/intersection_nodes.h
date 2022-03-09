@@ -212,6 +212,7 @@ public:
 
   void add_new_node(const Exact_kernel::Point_3& p)
   {
+#ifndef CGAL_DONT_USE_LAZY_KERNEL
     const Exact_kernel::Approximate_kernel::Point_3& p_approx=p.approx();
     const double precision =
       Lazy_exact_nt<Exact_kernel::FT>::get_relative_precision_of_to_double();
@@ -221,6 +222,7 @@ public:
     {
       p.exact();
     }
+#endif
     enodes.push_back(p);
   }
 
